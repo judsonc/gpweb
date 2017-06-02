@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  gpweb_db:
+    container_name: gpweb_db
+    restart: always
+    image: mysql:5.7.17
+    environment:
+      MYSQL_ROOT_PASSWORD: '7ex*SpUnaD6U'
+      MYSQL_USER: 'domotica_root'
+      MYSQL_PASSWORD: 'CdwP1tXKJ!k6cHo'
+      MYSQL_DATABASE: 'gpweb_db'
+      TZ: 'America/Recife'
+    ports:
+      - 3306:3306
+
+  phpmyadmin_gpweb:
+    container_name: phpmyadmin_gpweb
+    restart: always
+    image: phpmyadmin/phpmyadmin:4.6
+    environment:
+      PMA_HOST: 'gpweb_db'
+    volumes:
+      - /sessions
+    ports:
+      - 8000:80
+    depends_on:
+      - gpweb_db
